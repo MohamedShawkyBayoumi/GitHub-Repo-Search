@@ -89,7 +89,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className={`container ${value == '' && (!users.length && !repositories.length) ? 'align' : ''}`}>
       <Header
         value={value}
         type={type}

@@ -1,5 +1,26 @@
+html {
+  height: calc(100% - 20px);
+}
+
+html,
+body {
+  min-height: calc(100% - 20px);
+}
+
 body {
   padding: 10px 100px;
+}
+
+.align {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body,
+.container,
+#root {
+  height: 100%;
 }
 
 header {
@@ -23,6 +44,7 @@ select {
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 2px;
+  margin-bottom: 5px;
 }
 
 input {
@@ -65,7 +87,20 @@ select {
 @media(max-width: 768px){
   .user-card {
     flex: 0 1 calc(50% - 1em);
-    max-width: calc(50% -  1em);
-    
+    max-width: calc(50% -  1em); 
+  }
+
+  body {
+    padding: 10px;
+  }
+}
+
+@media(max-width: 540px){
+  input {
+    width: calc(60% - 10px);
+  }
+
+  select {
+    width: 40%;
   }
 }
