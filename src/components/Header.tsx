@@ -1,6 +1,13 @@
 import React from 'react'
 
-const Header: React.FC = () => {
+export type Props = {
+    value: string;
+    type: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onSelectType: (e: React.FormEvent<HTMLSelectElement>) => void;
+}
+
+const Header: React.FC<Props> = ({ value, type, onChange, onSelectType }) => {
     return (
         <header>
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
@@ -11,8 +18,13 @@ const Header: React.FC = () => {
                 </div>
             </div>
             <div>
-                <input type="text" placeholder="Start typing to search.." />
-                <select>
+                <input
+                    type="text"
+                    placeholder="Start typing to search.."
+                    value={value}
+                    onChange={(e) => onChange(e)}
+                />
+                <select onChange={(e) => onSelectType(e)}>
                     <option value="Users">Users</option>
                     <option value="Repositories">Repositories</option>
                 </select>
