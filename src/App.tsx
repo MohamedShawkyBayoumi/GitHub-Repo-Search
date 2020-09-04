@@ -67,6 +67,8 @@ const App: React.FC = () => {
     setValue(keyword);
     if(keyword.length >= 3){
       type == 'Users' ? debouncedGetUsers(keyword) : debouncedGetRepositories(keyword);
+    } else {
+      type == 'Users' ? dispatch(clearUsers()) : dispatch(clearRepositories());
     }
   }
 
@@ -76,6 +78,8 @@ const App: React.FC = () => {
 
     if(value.length >= 3){
       selectedValue == 'Users' ? debouncedGetUsers(value) : debouncedGetRepositories(value);
+    } else {
+      type == 'Users' ? dispatch(clearUsers()) : dispatch(clearRepositories());
     }
   }
 
