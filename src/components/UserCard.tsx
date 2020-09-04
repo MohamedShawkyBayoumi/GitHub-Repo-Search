@@ -1,12 +1,12 @@
 import React from 'react'
 
-type Props = {
+export type UsersPropsTypes = {
     avatar_url: string;
     login: string;
     html_url: string;
 }
 
-const UserCard: React.FC<Props> = ({ avatar_url, login, html_url }) => {
+const UserCard: React.FC<UsersPropsTypes> = ({ avatar_url, login, html_url }) => {
     return (
         <div className="user-card">
             {/* <img src={avatar_url} alt={login} /> */}
