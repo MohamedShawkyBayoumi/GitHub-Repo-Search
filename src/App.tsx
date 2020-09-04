@@ -14,6 +14,7 @@ const API = 'https://api.github.com';
 const App: React.FC = () => {
   const [value, setValue] = useState<string>(''),
         [type, setType] = useState<string>('Users'),
+        [errorMsg, setErrorMsg] = useState<string>(''),
         [loading, setLoading] = useState(false);
 
   const debouncedGetUsers = useCallback(debounce((value) => searchUsers(value), 500), []);
@@ -29,6 +30,7 @@ const App: React.FC = () => {
     try {
       setLoading(true);
       let res = await axios.get(`${API}/search/users?q=${keyword}+in:user`);
+      setErrorMsg('');
       
       let data = res.data.items.map(({
         avatar_url,
@@ -46,6 +48,7 @@ const App: React.FC = () => {
     } catch (error) {
       setLoading(false);
       console.log(error);
+      setErrorMsg(error);
     }
   }
 
@@ -53,12 +56,14 @@ const App: React.FC = () => {
     try {
       setLoading(true);
       let res = await axios.get(`${API}/search/repositories?q=${keyword}`);
+      setErrorMsg('');
       dispatch(clearUsers())
       dispatch(getRepositories(res.data.items));
       setLoading(false);
     } catch (error) {
       setLoading(false);
       console.log(error);
+      setErrorMsg(error);
     }
   }
 
@@ -92,6 +97,7 @@ const App: React.FC = () => {
         onSelectType={onSelectType}
       />
       <div className="cards-wrapper">
+        {errorMsg != '' && <p style={{ color: 'red' }}>Something went wrong</p>}
         {loading ? (
           <span>Loading...</span>
         ) : (
