@@ -1,38 +1,71 @@
-.App {
-  text-align: center;
+body {
+  padding: 10px 100px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+header {
+  margin-bottom: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h1,
+p {
+  margin: 0;
+}
+
+input,
+select {
+  height: 40px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+input {
+  width: 300px;
+  margin-right: 10px;
+  padding: 0 10px;
+}
+
+select {
+  /* width: ; */
+  padding: 0 10px;
+}
+
+.cards-wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin: 15px;
+  flex-wrap: wrap;
 }
 
-.App-link {
-  color: #61dafb;
+.user-card {
+  margin: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  flex: 0 1 calc(25% - 1em);
+  max-width: calc(25% - 1em);
+  padding: 10px 0;
+  text-align: center;
+  
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.user-card .img {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  border: 3px solid #ddd;
+  background-size: cover !important;
+  box-shadow: 0px 0px 10px #ddd;
+}
+
+@media(max-width: 768px){
+  .user-card {
+    flex: 0 1 calc(50% - 1em);
+    max-width: calc(50% -  1em);
+    
   }
 }
