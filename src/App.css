@@ -7,7 +7,7 @@ body {
   min-height: calc(100% - 20px);
 }
 
-body {
+header {
   padding: 10px 100px;
 }
 
@@ -54,7 +54,6 @@ input {
 }
 
 select {
-  /* width: ; */
   padding: 0 10px;
 }
 
@@ -67,21 +66,87 @@ select {
 .user-card {
   margin: 5px;
   border: 1px solid #ddd;
-  border-radius: 5px;
-  flex: 0 1 calc(25% - 1em);
-  max-width: calc(25% - 1em);
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px #efefef;
+  flex: 0 1 calc(33.33% - 1em);
+  max-width: calc(33.33% - 1em);
   padding: 10px 0;
-  text-align: center;
+  
   
 }
 
-.user-card .img {
+.user-card-content {
+  padding: 0 10px;
+  display: flex;
+}
+
+/* .user-card .img {
   height: 150px;
   width: 150px;
   border-radius: 50%;
   border: 3px solid #ddd;
   background-size: cover !important;
   box-shadow: 0px 0px 10px #ddd;
+} */
+
+.user-card img {
+  height: 100px;
+  width: 100px;
+  /* border-radius: 50%; */
+  border: 3px solid #ddd;
+  background-size: cover !important;
+  box-shadow: 0px 0px 10px #ddd;
+  margin-right: 10px;
+}
+
+.card-info h4 {
+  margin: 0;
+  word-break: break-all;
+}
+
+.card-info > a {
+  text-decoration: none;
+  background-color: darkorange;
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  /* white-space: pre-wrap; */
+}
+
+.card-info > a:hover {
+  background-color: orange;
+}
+
+.repo-info a {
+  text-decoration: none;
+  color: darkblue;
+}
+
+.repo-info a:hover {
+  text-decoration: none;
+  color: crimson;
+}
+
+.value {
+  color: gray;
+  font-style: italic;
+}
+
+.repo-info h5 {
+  margin: 5px 0;
+  padding: 2px 0;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-bottom: 1px solid #f2f2f2;
+  word-break: break-all;
+}
+
+.repo-info h5 span {
+  font-weight: normal;
+  text-transform: none;
+  font-style: italic;
+  color: brown;
 }
 
 @media(max-width: 768px){
@@ -90,8 +155,17 @@ select {
     max-width: calc(50% -  1em); 
   }
 
-  body {
+  header {
     padding: 10px;
+  }
+
+  .user-card-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .user-card img {
+    margin-right: 0;
   }
 }
 
@@ -103,4 +177,10 @@ select {
   select {
     width: 40%;
   }
+
+  .cards-wrapper {
+    margin: 0;
+  }
+
+  
 }

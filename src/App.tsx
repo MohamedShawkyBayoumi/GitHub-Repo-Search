@@ -14,7 +14,8 @@ const API = 'https://api.github.com';
 const App: React.FC = () => {
   const [value, setValue] = useState<string>(''),
         [type, setType] = useState<string>('Users'),
-        [errorMsg, setErrorMsg] = useState<string>(''),
+        [errorMsg, setErrorMsg] = useState<boolean>(false),
+        [total_count, setTotal_count] = useState<number>(1),
         [loading, setLoading] = useState(false);
 
   const debouncedGetUsers = useCallback(debounce((value) => searchUsers(value), 500), []);
@@ -24,31 +25,46 @@ const App: React.FC = () => {
   const repositories = useSelector<GlobalState, GlobalState['repositories']>(state => state.repositories);
   const dispatch = useDispatch();
 
-  console.log('users from store', users);
+  console.log('repositories from store', repositories);
 
   const searchUsers = async (keyword: string) => {
     try {
       setLoading(true);
       let res = await axios.get(`${API}/search/users?q=${keyword}+in:user`);
-      setErrorMsg('');
-      
-      let data = res.data.items.map(({
+      setErrorMsg(false);
+      console.log('res.data.items', res.data.items);
+
+      setTotal_count(res.data.total_count);
+
+      let data = Promise.all(res.data.items.map(async ({
         avatar_url,
         login,
-        html_url
-      }: UsersPropsTypes) => ({
-        avatar_url,
-        login,
-        html_url
+        html_url,
+        url
+      }: UsersPropsTypes) => {
+        try {
+          // let res2 = await axios.get(url);
+          return {
+            avatar_url,
+            login,
+            html_url,
+            url,
+            // details: res2.data
+          }
+        } catch (error) {
+          setErrorMsg(error);
+        }
       }))
 
       dispatch(clearRepositories())
-      dispatch(getUsers(data));
+      dispatch(getUsers(await data));
       setLoading(false);
+      setErrorMsg(false);
     } catch (error) {
+      dispatch(clearUsers())
       setLoading(false);
       console.log(error);
-      setErrorMsg(error);
+      setErrorMsg(true);
     }
   }
 
@@ -56,18 +72,21 @@ const App: React.FC = () => {
     try {
       setLoading(true);
       let res = await axios.get(`${API}/search/repositories?q=${keyword}`);
-      setErrorMsg('');
+      setTotal_count(res.data.total_count);
+      setErrorMsg(false);
       dispatch(clearUsers())
       dispatch(getRepositories(res.data.items));
       setLoading(false);
     } catch (error) {
+      dispatch(clearRepositories())
       setLoading(false);
       console.log(error);
-      setErrorMsg(error);
+      setErrorMsg(true);
     }
   }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setLoading(true);
     let keyword = e.target.value;
     setValue(keyword);
     if(keyword.length >= 3){
@@ -75,6 +94,7 @@ const App: React.FC = () => {
     } else {
       type == 'Users' ? dispatch(clearUsers()) : dispatch(clearRepositories());
     }
+    setLoading(false);
   }
 
   const onSelectType = (e: React.FormEvent<HTMLSelectElement>): void => {
@@ -97,21 +117,31 @@ const App: React.FC = () => {
         onSelectType={onSelectType}
       />
       <div className="cards-wrapper">
-        {errorMsg != '' && <p style={{ color: 'red' }}>Something went wrong</p>}
+        
         {loading ? (
           <span>Loading...</span>
         ) : (
           <>
             {
-              users.length > 0 && users.map((info: any, i) => (
+              users.length > 0 ? users.map((info: any, i) => (
                 <UserCard {...info} key={i} />
-              ))
+              )) : (
+                <>
+                  {!errorMsg && value.length > 3 && !loading && !repositories.length && type == 'Users' && total_count == 0 ? <p>There is no items match the search<span className="value">`{value}`</span></p>: null}
+                  {errorMsg && type == 'Users' && <p style={{ color: 'red' }}>Something went wrong or API rate limit exceeded</p>}
+                </>
+              )
             }
     
             {
-              repositories.length > 0 && repositories.map((info: any, i) => (
+              repositories.length > 0 ? repositories.map((info: any, i) => (
                 <RepositoryCard {...info} key={i} />
-              ))
+              )) : (
+                <>
+                  {!errorMsg && value.length > 3 && !loading && !users.length && type == 'Repositories' && total_count == 0 ? <p>There is no items match the search<span className="value">`{value}`</span></p>: null}
+                  {errorMsg && type == 'Repositories' && <p style={{ color: 'red' }}>Something went wrong or API rate limit exceeded</p>}
+                </>
+              )
             }
           </>
         )}        

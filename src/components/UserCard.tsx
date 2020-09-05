@@ -4,21 +4,21 @@ export type UsersPropsTypes = {
     avatar_url: string;
     login: string;
     html_url: string;
+    url: string;
+    details: any
 }
 
-const UserCard: React.FC<UsersPropsTypes> = ({ avatar_url, login, html_url }) => {
+const UserCard: React.FC<UsersPropsTypes> = ({ avatar_url, login, html_url, details }) => {
+    console.log('details', details);
     return (
         <div className="user-card">
-            {/* <img src={avatar_url} alt={login} /> */}
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <div
-                    className="img"
-                    style={{
-                        background: `url('${avatar_url}') no-repeat`
-                    }}
-                />
+            <div className="user-card-content">
+                <img src={avatar_url} alt={login} />
+                <div className="card-info">
+                    <h4>{login}</h4>
+                    <a href={html_url}>Go to Profile</a>
+                </div>
             </div>
-            <h4><a href={html_url}>{login}</a></h4>
         </div>
     )
 }
