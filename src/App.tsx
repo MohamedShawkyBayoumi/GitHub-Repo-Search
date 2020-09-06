@@ -113,7 +113,7 @@ const App: React.FC = () => {
   }
 
   const checkExistingItems = (dataLength: number, typeSelected: boolean) => {
-    return !errorMsg && value.length > 3 && !loading && !dataLength && typeSelected && total_count == 0 ? <p>There is no items match the search<span className="value">`{value}`</span></p>: null
+    return !errorMsg && value.length >= 3 && !loading && !dataLength && typeSelected && total_count == 0 ? <p>There is no items match the search<span className="value">`{value}`</span></p>: null
   }
 
   return (
