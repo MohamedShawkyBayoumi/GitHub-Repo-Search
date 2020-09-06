@@ -1,7 +1,7 @@
 
 export interface Action {
     type: string,
-    payload: any
+    payload?: any
 }
 
 export const getUsers = (payload: any): Action => ({
@@ -14,10 +14,10 @@ export const getRepositories = (payload: any): Action => ({
     payload
 });
 
-export const clearUsers = () => ({
+export const clearUsers = ():Action => ({
     type: 'CLEAR_USERS'
 });
 
-export const clearRepositories = () => ({
+export const clearRepositories = ():Action => ({
     type: 'CLEAR_REPOSITORIES'
 });

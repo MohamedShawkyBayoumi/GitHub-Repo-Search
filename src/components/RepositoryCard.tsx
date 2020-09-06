@@ -5,7 +5,6 @@ type Owner = {
     avatar_url: string;
     html_url: string;
 }
-
 export interface IRepositoriesProps {
     name: string;
     owner: Owner;

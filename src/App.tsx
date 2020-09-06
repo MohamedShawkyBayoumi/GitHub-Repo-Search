@@ -22,8 +22,6 @@ const App: React.FC = () => {
         repositories = useSelector<GlobalState, GlobalState['repositories']>(state => state.repositories),
         dispatch = useDispatch();
 
-  console.log('repositories from store', repositories);
-
   const searchUsers = async (keyword: string) => {
     try {
       setLoading(true);
@@ -32,28 +30,20 @@ const App: React.FC = () => {
 
       setTotal_count(res.data.total_count);
 
-      let data = Promise.all(res.data.items.map(async ({
+      let data = res.data.items.map(({
         avatar_url,
         login,
         html_url,
         url
-      }: IUsersProps) => {
-        try {
-          // let res2 = await axios.get(url);
-          return {
-            avatar_url,
-            login,
-            html_url,
-            url,
-            // details: res2.data
-          }
-        } catch (error) {
-          setErrorMsg(error);
-        }
+      }: IUsersProps) => ({
+        avatar_url,
+        login,
+        html_url,
+        url
       }))
 
       dispatch(clearRepositories())
-      dispatch(getUsers(await data));
+      dispatch(getUsers(data));
       setLoading(false);
       setErrorMsg(false);
     } catch (error) {

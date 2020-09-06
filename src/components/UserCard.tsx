@@ -5,11 +5,9 @@ export interface IUsersProps {
     login: string;
     html_url: string;
     url: string;
-    details: any
 }
 
-const UserCard: React.FC<IUsersProps> = ({ avatar_url, login, html_url, details }) => {
-    console.log('details', details);
+const UserCard: React.FC<IUsersProps> = ({ avatar_url, login, html_url }) => {
     return (
         <div className="user-card">
             <div className="user-card-content">
