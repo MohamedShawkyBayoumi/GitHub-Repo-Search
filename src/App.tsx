@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.css';
 import Header from './components/Header';
 import axios from 'axios';
@@ -86,27 +86,26 @@ const App: React.FC = () => {
     type === 'Users' ? dispatch(clearUsers()) : dispatch(clearRepositories());
   }
 
+  const callAPI = (keyword: string, typeSelected: boolean) => {
+    if(keyword.length >= 3){
+      typeSelected ? debouncedGetUsers(keyword) : debouncedGetRepositories(keyword);
+    } else {
+      clearData();
+    }
+  }
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setLoading(true);
     let keyword = e.target.value;
     setValue(keyword);
-    if(keyword.length >= 3){
-      type === 'Users' ? debouncedGetUsers(keyword) : debouncedGetRepositories(keyword);
-    } else {
-      clearData();
-    }
+    callAPI(keyword, type === 'Users');
     setLoading(false);
   }
 
   const onSelectType = (e: React.FormEvent<HTMLSelectElement>): void => {
     let selectedValue = e.currentTarget.value;
     setType(selectedValue);
-
-    if(value.length >= 3){
-      selectedValue == 'Users' ? debouncedGetUsers(value) : debouncedGetRepositories(value);
-    } else {
-      clearData();
-    }
+    callAPI(value, selectedValue === 'Users');
   }
 
   const checkError = (typeSelected: boolean) => {
