@@ -1,44 +1,47 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with React, Typescript, Redux, Redux-Persist, axios, lodash, Vanilla CSS
 
-## Available Scripts
+## Installing Dependencies
 
-In the project directory, you can run:
+In the project root directory
+
+### `yarn install`
+
+## Available Scripts To Run The Projects
+
+In the project root directory
 
 ### `yarn start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## The Frontend
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+* The input fields on the middle of the page until you start typing in the search input field, You will find the input fields moved to the top left corner of the page .<br />
 
-### `yarn test`
+* The page shows loading while fetching the data from the Github api.<br />
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* The page shows an error message if the request failed to load or API rate limit exceeded.<br />
 
-### `yarn build`
+* You can search for Users by typing their names in the search input field and select `Users` from the dropdown.<br />
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* You can search for Repositories by typing the Repository name in the search input field and select `Repositories` from the dropdown.<br />
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+* You should type more than or equal to 3 characters to start calling the API and fetch the data.<br />
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Used debounce utility to enhance search performance by reducing the requests to the server.<br />
 
-### `yarn eject`
+* If the user clears the input or types less than three characters, clear the results will be cleared and displaying an empty screen. <br />
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* The data should be cached in the store and persisted via redux-persist.<br />
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* On smaller screens (width <= 768px), the grid will be 2 columns<br />
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### API Route
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+`https://api.github.com`
 
-## Learn More
+### API Endpoints
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**`GET`** `/search/users?q=${keyword}+in:user`
+To see all Users<br />
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**`GET`** `/search/repositories?q=${keyword}`
+To see all Repositories<br />
