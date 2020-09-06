@@ -2,7 +2,7 @@ This project was bootstrapped with React, Typescript, Redux, Redux-Persist, axio
 
 ## The Project Live
 
-[https://mohamedshawkybayoumi.github.io/GitHub-Repo-Search](GitHub-Repo-Search)
+[GitHub-Repo-Search](https://mohamedshawkybayoumi.github.io/GitHub-Repo-Search)
 
 ## Installing Dependencies
 
