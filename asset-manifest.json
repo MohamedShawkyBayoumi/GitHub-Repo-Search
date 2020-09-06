@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/GitHub-Repo-Search/static/css/main.9b1ab89e.chunk.css",
+    "main.js": "/GitHub-Repo-Search/static/js/main.b7a26338.chunk.js",
+    "main.js.map": "/GitHub-Repo-Search/static/js/main.b7a26338.chunk.js.map",
+    "runtime-main.js": "/GitHub-Repo-Search/static/js/runtime-main.98bb28dd.js",
+    "runtime-main.js.map": "/GitHub-Repo-Search/static/js/runtime-main.98bb28dd.js.map",
+    "static/js/2.105a0da1.chunk.js": "/GitHub-Repo-Search/static/js/2.105a0da1.chunk.js",
+    "static/js/2.105a0da1.chunk.js.map": "/GitHub-Repo-Search/static/js/2.105a0da1.chunk.js.map",
+    "index.html": "/GitHub-Repo-Search/index.html",
+    "precache-manifest.0bac7d6081c9877d952e0d9ce0f6095e.js": "/GitHub-Repo-Search/precache-manifest.0bac7d6081c9877d952e0d9ce0f6095e.js",
+    "service-worker.js": "/GitHub-Repo-Search/service-worker.js",
+    "static/css/main.9b1ab89e.chunk.css.map": "/GitHub-Repo-Search/static/css/main.9b1ab89e.chunk.css.map",
+    "static/js/2.105a0da1.chunk.js.LICENSE.txt": "/GitHub-Repo-Search/static/js/2.105a0da1.chunk.js.LICENSE.txt",
+    "static/media/github-logo.png": "/GitHub-Repo-Search/static/media/github-logo.b71bc541.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.98bb28dd.js",
+    "static/js/2.105a0da1.chunk.js",
+    "static/css/main.9b1ab89e.chunk.css",
+    "static/js/main.b7a26338.chunk.js"
+  ]
+}
