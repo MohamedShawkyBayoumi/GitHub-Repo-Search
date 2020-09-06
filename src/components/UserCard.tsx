@@ -1,6 +1,6 @@
 import React from 'react'
 
-export type UsersPropsTypes = {
+export interface IUsersProps {
     avatar_url: string;
     login: string;
     html_url: string;
@@ -8,7 +8,7 @@ export type UsersPropsTypes = {
     details: any
 }
 
-const UserCard: React.FC<UsersPropsTypes> = ({ avatar_url, login, html_url, details }) => {
+const UserCard: React.FC<IUsersProps> = ({ avatar_url, login, html_url, details }) => {
     console.log('details', details);
     return (
         <div className="user-card">

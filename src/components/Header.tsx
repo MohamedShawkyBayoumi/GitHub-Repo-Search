@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export type Props = {
     value: string;
@@ -24,7 +24,10 @@ const Header: React.FC<Props> = ({ value, type, onChange, onSelectType }) => {
                     value={value}
                     onChange={(e) => onChange(e)}
                 />
-                <select onChange={(e) => onSelectType(e)}>
+                <select
+                    onChange={(e) => onSelectType(e)}
+                    value={type}
+                >
                     <option value="Users">Users</option>
                     <option value="Repositories">Repositories</option>
                 </select>

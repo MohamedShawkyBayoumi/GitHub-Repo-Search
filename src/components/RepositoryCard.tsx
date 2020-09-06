@@ -6,7 +6,7 @@ type Owner = {
     html_url: string;
 }
 
-type Props = {
+export interface IRepositoriesProps {
     name: string;
     owner: Owner;
     score: number;
@@ -18,7 +18,7 @@ type Props = {
     updated_at: string;
 }
 
-const RepositoryCard: React.FC<Props> = ({
+const RepositoryCard: React.FC<IRepositoriesProps> = ({
     name,
     owner: { login, avatar_url, html_url },
     score,

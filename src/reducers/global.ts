@@ -1,16 +1,9 @@
 import { Action } from '../actions/global';
-
-type UsersTypes = {
-
-}
-
-type RepositoriesTypes = {
-
-}
-
+import { IUsersProps } from '../components/UserCard';
+import { IRepositoriesProps } from '../components/RepositoryCard';
 export interface GlobalState {
-    users: Array<UsersTypes>,
-    repositories: Array<RepositoriesTypes>
+    users: Array<IUsersProps>,
+    repositories: Array<IRepositoriesProps>
 }
 
 const initialState = {

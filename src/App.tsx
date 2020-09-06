@@ -2,14 +2,13 @@ import React, { useState, useCallback } from 'react';
 import './App.css';
 import Header from './components/Header';
 import axios from 'axios';
-import UserCard, { UsersPropsTypes } from './components/UserCard';
+import UserCard, { IUsersProps } from './components/UserCard';
 import RepositoryCard from './components/RepositoryCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { GlobalState } from './reducers/global';
 import { getUsers, getRepositories, clearUsers, clearRepositories } from './actions/global';
 import { debounce } from 'lodash';
-
-const API = 'https://api.github.com';
+import { API } from './APIService';
 
 const App: React.FC = () => {
   const [value, setValue] = useState<string>(''),
@@ -38,7 +37,7 @@ const App: React.FC = () => {
         login,
         html_url,
         url
-      }: UsersPropsTypes) => {
+      }: IUsersProps) => {
         try {
           // let res2 = await axios.get(url);
           return {
@@ -113,7 +112,7 @@ const App: React.FC = () => {
   }
 
   const checkExistingItems = (dataLength: number, typeSelected: boolean) => {
-    return !errorMsg && value.length >= 3 && !loading && !dataLength && typeSelected && total_count == 0 ? <p>There is no items match the search<span className="value">`{value}`</span></p>: null
+    return !errorMsg && value.length >= 3 && !loading && !dataLength && typeSelected && total_count === 0 ? <p>There is no items match the search<span className="value">`{value}`</span></p>: null
   }
 
   return (
@@ -125,7 +124,6 @@ const App: React.FC = () => {
         onSelectType={onSelectType}
       />
       <div className="cards-wrapper">
-        
         {loading ? (
           <p>Loading...</p>
         ) : (
