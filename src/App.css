@@ -7,14 +7,10 @@ body {
   min-height: calc(100% - 20px);
 }
 
-header {
-  padding: 10px 100px;
-}
-
-.align {
+.align,
+.cards-wrapper,
+.user-card-content {
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 body,
@@ -23,18 +19,9 @@ body,
   height: 100%;
 }
 
-header {
-  margin-bottom: 20px;
-}
-
-.logo {
-  width: 50px;
-  height: 50px;
-  margin-right: 20px;
-}
-
 h1,
-p {
+p,
+h4 {
   margin: 0;
 }
 
@@ -47,18 +34,56 @@ select {
   margin-bottom: 5px;
 }
 
-input {
-  width: 300px;
+input,
+.user-card img {
   margin-right: 10px;
+}
+
+input,
+select,
+.user-card-content {
   padding: 0 10px;
 }
 
-select {
-  padding: 0 10px;
+.card-info h4,
+.repo-info h5 {
+  word-break: break-all;
+}
+
+.card-info > a,
+.repo-info a {
+  text-decoration: none;
+}
+
+.value,
+.repo-info h5 span {
+  font-style: italic;
+}
+
+header {
+  padding: 10px 100px;
+}
+
+.align {
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+}
+
+input {
+  width: 300px;
 }
 
 .cards-wrapper {
-  display: flex;
   margin: 15px;
   flex-wrap: wrap;
 }
@@ -71,47 +96,23 @@ select {
   flex: 0 1 calc(33.33% - 1em);
   max-width: calc(33.33% - 1em);
   padding: 10px 0;
-  
-  
 }
-
-.user-card-content {
-  padding: 0 10px;
-  display: flex;
-}
-
-/* .user-card .img {
-  height: 150px;
-  width: 150px;
-  border-radius: 50%;
-  border: 3px solid #ddd;
-  background-size: cover !important;
-  box-shadow: 0px 0px 10px #ddd;
-} */
 
 .user-card img {
   height: 100px;
   width: 100px;
-  /* border-radius: 50%; */
   border: 3px solid #ddd;
   background-size: cover !important;
   box-shadow: 0px 0px 10px #ddd;
-  margin-right: 10px;
-}
-
-.card-info h4 {
-  margin: 0;
-  word-break: break-all;
 }
 
 .card-info > a {
-  text-decoration: none;
   background-color: darkorange;
   color: #fff;
   padding: 2px 5px;
   border-radius: 5px;
   font-size: 12px;
-  /* white-space: pre-wrap; */
+  white-space: nowrap;
 }
 
 .card-info > a:hover {
@@ -119,18 +120,15 @@ select {
 }
 
 .repo-info a {
-  text-decoration: none;
   color: darkblue;
 }
 
 .repo-info a:hover {
-  text-decoration: none;
   color: crimson;
 }
 
 .value {
-  color: gray;
-  font-style: italic;
+  color: gray;  
 }
 
 .repo-info h5 {
@@ -138,21 +136,19 @@ select {
   padding: 2px 0;
   text-transform: uppercase;
   font-weight: 500;
-  border-bottom: 1px solid #f2f2f2;
-  word-break: break-all;
+  border-bottom: 1px solid #f2f2f2;  
 }
 
 .repo-info h5 span {
   font-weight: normal;
   text-transform: none;
-  font-style: italic;
   color: brown;
 }
 
 @media(max-width: 768px){
   .user-card {
     flex: 0 1 calc(50% - 1em);
-    max-width: calc(50% -  1em); 
+    max-width: calc(50% -  1em);
   }
 
   header {
