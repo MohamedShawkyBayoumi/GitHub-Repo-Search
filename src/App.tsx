@@ -16,14 +16,12 @@ const App: React.FC = () => {
         [type, setType] = useState<string>('Users'),
         [errorMsg, setErrorMsg] = useState<boolean>(false),
         [total_count, setTotal_count] = useState<number>(1),
-        [loading, setLoading] = useState(false);
-
-  const debouncedGetUsers = useCallback(debounce((value) => searchUsers(value), 500), []);
-  const debouncedGetRepositories = useCallback(debounce((value) => searchRepositories(value), 500), []);
-
-  const users = useSelector<GlobalState, GlobalState['users']>(state => state.users);
-  const repositories = useSelector<GlobalState, GlobalState['repositories']>(state => state.repositories);
-  const dispatch = useDispatch();
+        [loading, setLoading] = useState(false),
+        debouncedGetUsers = useCallback(debounce((value) => searchUsers(value), 500), []),
+        debouncedGetRepositories = useCallback(debounce((value) => searchRepositories(value), 500), []),
+        users = useSelector<GlobalState, GlobalState['users']>(state => state.users),
+        repositories = useSelector<GlobalState, GlobalState['repositories']>(state => state.repositories),
+        dispatch = useDispatch();
 
   console.log('repositories from store', repositories);
 
@@ -32,7 +30,6 @@ const App: React.FC = () => {
       setLoading(true);
       let res = await axios.get(`${API}/search/users?q=${keyword}+in:user`);
       setErrorMsg(false);
-      console.log('res.data.items', res.data.items);
 
       setTotal_count(res.data.total_count);
 
@@ -85,14 +82,18 @@ const App: React.FC = () => {
     }
   }
 
+  const clearData = () => {
+    type === 'Users' ? dispatch(clearUsers()) : dispatch(clearRepositories());
+  }
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setLoading(true);
     let keyword = e.target.value;
     setValue(keyword);
     if(keyword.length >= 3){
-      type == 'Users' ? debouncedGetUsers(keyword) : debouncedGetRepositories(keyword);
+      type === 'Users' ? debouncedGetUsers(keyword) : debouncedGetRepositories(keyword);
     } else {
-      type == 'Users' ? dispatch(clearUsers()) : dispatch(clearRepositories());
+      clearData();
     }
     setLoading(false);
   }
@@ -104,12 +105,20 @@ const App: React.FC = () => {
     if(value.length >= 3){
       selectedValue == 'Users' ? debouncedGetUsers(value) : debouncedGetRepositories(value);
     } else {
-      type == 'Users' ? dispatch(clearUsers()) : dispatch(clearRepositories());
+      clearData();
     }
   }
 
+  const checkError = (typeSelected: boolean) => {
+    return errorMsg && value.length >= 3 && typeSelected && <p style={{ color: 'red' }}>Something went wrong or API rate limit exceeded</p>
+  }
+
+  const checkExistingItems = (dataLength: number, typeSelected: boolean) => {
+    return !errorMsg && value.length > 3 && !loading && !dataLength && typeSelected && total_count == 0 ? <p>There is no items match the search<span className="value">`{value}`</span></p>: null
+  }
+
   return (
-    <div className={`container ${value == '' && (!users.length && !repositories.length) ? 'align' : ''}`}>
+    <div className={`container ${value === '' && (!users.length && !repositories.length) ? 'align' : ''}`}>
       <Header
         value={value}
         type={type}
@@ -119,7 +128,7 @@ const App: React.FC = () => {
       <div className="cards-wrapper">
         
         {loading ? (
-          <span>Loading...</span>
+          <p>Loading...</p>
         ) : (
           <>
             {
@@ -127,8 +136,8 @@ const App: React.FC = () => {
                 <UserCard {...info} key={i} />
               )) : (
                 <>
-                  {!errorMsg && value.length > 3 && !loading && !repositories.length && type == 'Users' && total_count == 0 ? <p>There is no items match the search<span className="value">`{value}`</span></p>: null}
-                  {errorMsg && type == 'Users' && <p style={{ color: 'red' }}>Something went wrong or API rate limit exceeded</p>}
+                  {checkExistingItems(repositories.length, type === 'Users')}
+                  {checkError(type === 'Users')}
                 </>
               )
             }
@@ -138,8 +147,8 @@ const App: React.FC = () => {
                 <RepositoryCard {...info} key={i} />
               )) : (
                 <>
-                  {!errorMsg && value.length > 3 && !loading && !users.length && type == 'Repositories' && total_count == 0 ? <p>There is no items match the search<span className="value">`{value}`</span></p>: null}
-                  {errorMsg && type == 'Repositories' && <p style={{ color: 'red' }}>Something went wrong or API rate limit exceeded</p>}
+                  {checkExistingItems(users.length, type === 'Repositories')}
+                  {checkError(type === 'Repositories')}
                 </>
               )
             }
